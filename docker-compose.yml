@@ -1,0 +1,41 @@
+services:
+  dev:
+    container_name: web-chat-server-messages
+    image: web-chat-server-messages-image:1.0.0
+    build:
+        context: .
+        target: development
+        dockerfile: ./Dockerfile
+    command: npm run start:dev
+    ports:
+        - 9001:9001
+    restart: unless-stopped
+    depends_on:
+        - mongo
+    volumes:
+      - ./:/app
+    networks:
+      - app-network
+
+  mongo:
+    image: mongo
+    container_name: web-chat-server-messages-mongo
+    ports:
+      - 27018:27017
+    volumes:
+      - ./scripts/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+      - ./mongo-volume:/data/db
+    environment:
+      MONGO_INITDB_DATABASE: messages
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: s3cre3t123
+    networks:
+      - app-network
+
+volumes:
+  mongo:
+    driver: local
+
+networks:
+  app-network:
+    driver: bridge
