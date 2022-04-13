@@ -12,10 +12,10 @@ export class MessagesRepository {
         return this.messageModel.find();
     }
 
-    async create(user: Partial<Message>): Promise<Message> {
-        const newUser = new this.messageModel(user);
-        await newUser.save();
-        return newUser.toObject({ versionKey: false }); // versionKey false avoids internal mongoose properties used to track versions of the object
+    async create(message: Partial<Message>): Promise<Message> {
+        const newMessage = new this.messageModel(message);
+        await newMessage.save();
+        return newMessage.toObject({ versionKey: false }); // versionKey false avoids internal mongoose properties used to track versions of the object
     }
 }
 
