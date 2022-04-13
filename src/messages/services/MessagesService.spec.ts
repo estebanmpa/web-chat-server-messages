@@ -5,9 +5,10 @@ import { MessagesRepository } from "../repositories/messages.repository";
 import { ChatGateway } from "../sockets/chatGateway";
 import { MessagesService } from "./MessagesService";
 
-let service: MessagesService;
 
 describe('MessagesService', () => {
+    let service: MessagesService;
+
     beforeEach(async () => {
         const fakeChatGateway: Partial<ChatGateway> = {
             emitMessage: (message: Message) => null
