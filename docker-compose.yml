@@ -11,13 +11,13 @@ services:
         - 9001:9001
     restart: unless-stopped
     depends_on:
-        - mongo-messages
+        - mongo
     volumes:
       - ./:/app
     networks:
       - app-network
 
-  mongo-messages:
+  mongo:
     image: mongo
     container_name: web-chat-server-messages-mongo
     ports:
